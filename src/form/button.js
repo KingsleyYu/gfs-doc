@@ -9,9 +9,6 @@ import React, { PropTypes } from 'react';
  * @submodule form
  * @extends Component
  * @constructor
- * @show true
- * @block Button 主标题|Button subTitle|button.js
- * @block Button 主标题1|Button subTitle2|button.js
  * */
 export default class Button extends Component {
     static propTypes = {

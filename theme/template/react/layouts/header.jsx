@@ -1,5 +1,4 @@
-import React from 'react';
-// import PropTypes from 'prop-types'
+import React, { PropTypes } from 'react';
 
 import '../../../styles/header.less'
 
@@ -8,7 +7,7 @@ const Header = () => {
         <div className="headerWrapper">
             <header className="header">
                 this is a header
-                </header>
+            </header>
         </div>
     )
 }
