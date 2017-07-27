@@ -1,21 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 
-import Header from './layouts/header'
+
+import MainLayout from './layouts/main'
+import Content from './layouts/content'
+import '../../styles/app.less'
+
 
 const roolEl = document.getElementById('app');
 
-class App extends React.Component {
-    render() {
-        return(
-            <div>
-                <Header />
-            </div>
-        )
-    }
-}
 
 ReactDOM.render(
-    <App />,
+    <Router history={browserHistory} >
+        <route path="/" component={MainLayout}>
+            <route path="/components/:name" component={Content} />
+        </route>
+    </Router>,
     roolEl
 )

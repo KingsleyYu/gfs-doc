@@ -20,8 +20,6 @@ Object.assign(config, {
 })
 
 
-console.log(config)
-
 // 编译
 var compiler = webpack(config);
 

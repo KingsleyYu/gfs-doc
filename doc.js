@@ -34,11 +34,7 @@ exports.build = function (config, callback) {
         fs.mkdirSync(docConfig.outdir)
     }
 
-    extendYUIDoc();
-
     buildDoc(docConfig);
-
-    readMarkDownFile("button")
 
     function buildDoc(options) {
         var json;
@@ -79,13 +75,15 @@ exports.build = function (config, callback) {
 
         options = Y.Project.mix(json, options);
 
-        var metaData = buildDocConfig(json);
+        var metaData = buildDocConfig(Object.assign({}, json));
 
-        fs.writeFileSync(path.join(options.outdir, 'data.json'), JSON.stringify(json));
+        fs.writeFileSync(path.join(options.outdir, 'doc.js'), "export default " + JSON.stringify(metaData));
     }
 
     function buildDocConfig(data) {
-        var items = [];
+        var items = [], submodules = [], module, subModule, moduleName, subModuleName;
+
+        var mdFiles = walk(path.join(__dirname, docConfig.paths[0]), ".md");
 
         Y.each(data.modules, function (item) {
             item.name && items.push({
@@ -109,72 +107,31 @@ exports.build = function (config, callback) {
             });
         })
 
-        var config = {
-            filterItems: items
-        }
+        data.filterItems = items;
 
-        return config;
+        //Read the markdown files and covnter it to json       
+        Y.each(data.classes, function (oClass) {
+            oClass.blocks = readMarkDownFile(mdFiles, oClass.name);
+        })
 
+        //group the classes by module and submodule 
+        Y.each(data.modules, function (i, oModuleKey) {
+            module = data.modules[oModuleKey];
+            if (!module.is_submodule) {
+                submodules = [];
+                Y.each(module.submodules, function (j, oSubModuleKey) {
+                    submodules.push({
+                        name: oSubModuleKey,
+                        classes: getClassesBySubmodule(data.classes, module.name, oSubModuleKey)
+                    })
+                })
+                module.submodules = submodules;
+            } 
+        })
 
+        return data;
     }
 
-    function extendYUIDoc() {
-        var classSelf = this;
-
-        //重新模块生成
-        Y.DocBuilder.prototype.populateModules = function (opts) {
-            var self = this;
-            opts.meta.modules = [];
-            opts.meta.allModules = [];
-
-            Y.each(this.data.modules, function (v) {
-                if (v.external) {
-                    return;
-                }
-
-                var classes = [];
-
-                for (var cName in v.classes) {
-                    classes.push({
-                        name: cName
-                    });
-                }
-
-                opts.meta.allModules.push({
-                    displayName: v.displayName || v.name,
-                    name: self.filterFileName(v.name),
-                    description: v.description,
-                    classes: classes.length ? classes : null
-                });
-
-                if (!v.is_submodule) {
-                    var o = {
-                        displayName: v.displayName || v.name,
-                        name: self.filterFileName(v.name),
-                        classes: classes.length ? classes : null
-                    };
-                    if (v.submodules) {
-                        o.submodules = [];
-                        Y.each(v.submodules, function (i, k) {
-                            var moddef = self.data.modules[k];
-                            if (moddef) {
-                                o.submodules.push({
-                                    displayName: k,
-                                    description: moddef.description,
-                                    classes: getClassesBySubmodule(self.data.classes, k)
-                                });
-                            }
-                        });
-                        o.submodules.sort(self.nameSort);
-                    }
-                    opts.meta.modules.push(o);
-                }
-            });
-            opts.meta.modules.sort(this.nameSort);
-            opts.meta.allModules.sort(this.nameSort);
-            return opts;
-        }
-    }
 
     // 同时写一份 versions.js 文件记录版本信息
     function getVersionsConf() {
@@ -217,15 +174,16 @@ exports.build = function (config, callback) {
     }
 
     /**
-     * 根据submodule 分组classes
+     * 根据module和submodule 分组classes
      * @param {*} data 
+     * @param {*} module 
      * @param {*} submodule 
      */
-    function getClassesBySubmodule(data, submodule) {
+    function getClassesBySubmodule(data, module, submodule) {
         var c_array = [];
 
         Y.each(data, function (i, o) {
-            if (data[o].submodule === submodule) {
+            if (data[o].module === module && data[o].submodule === submodule) {
                 c_array.push(data[o])
             }
         })
@@ -235,14 +193,14 @@ exports.build = function (config, callback) {
 
     /**
      * 读取指定目录下的的markdown 文件的内容，并将其转化会json 数据
-     * @param {*} name 
+     * @param {*} 文件集合
+     * @param {*} 文件名 
      */
-    function readMarkDownFile(name) {
-        var mdFiles = walk(path.join(__dirname, docConfig.paths[0]), ".md");
+    function readMarkDownFile(mdFiles, name) {
         var dataList = {};
         var data = {}, titleEl, subTitleEl, descEl, preEl, linkEl;
         Y.each(mdFiles, function (md) {
-            if (path.basename(md, ".md") === name) {
+            if (path.basename(md, ".md").toLowerCase() === name.toLowerCase()) {
                 dataList = {
                     name: name,
                     blocks: []

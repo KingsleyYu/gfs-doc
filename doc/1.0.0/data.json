@@ -1,0 +1,178 @@
+{
+    "project": {
+        "name": "商家线UI库",
+        "description": "phonix-ui",
+        "isApp": false,
+        "version": "1.1.0",
+        "url": "https://github.com/future-team",
+        "navs": [
+            {
+                "name": "首页",
+                "url": "https://github.com/future-team"
+            },
+            {
+                "name": "文档",
+                "url": "index.html"
+            },
+            {
+                "name": "关于",
+                "url": "http://uedfamily.com/about/"
+            }
+        ],
+        "header": "",
+        "footer": "",
+        "docVersion": "1.0.0"
+    },
+    "files": {
+        "src/form/button.js": {
+            "name": "src/form/button.js",
+            "modules": {},
+            "classes": {
+                "Button": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "基础组件": {
+            "name": "基础组件",
+            "submodules": {
+                "form": 1
+            },
+            "elements": {},
+            "classes": {
+                "Button": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "file": "src/form/button.js",
+            "line": 5
+        },
+        "form": {
+            "name": "form",
+            "submodules": {},
+            "elements": {},
+            "classes": {
+                "Button": 1
+            },
+            "fors": {},
+            "is_submodule": 1,
+            "namespaces": {},
+            "module": "基础组件",
+            "namespace": "",
+            "description": "按钮组件提供内置样式",
+            "file": "src/form/button.js",
+            "line": 5
+        }
+    },
+    "classes": {
+        "Button": {
+            "name": "Button",
+            "shortname": "Button",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "基础组件",
+            "file": "src/form/button.js",
+            "line": 5,
+            "description": "按钮组件提供内置样式",
+            "submodule": "form",
+            "extends": "Component",
+            "is_constructor": 1
+        }
+    },
+    "elements": {},
+    "classitems": [
+        {
+            "file": "src/form/button.js",
+            "line": 15,
+            "description": "按钮尺寸,分别为xs、sm、lg",
+            "itemtype": "property",
+            "name": "egSize",
+            "type": "String",
+            "default": "sm",
+            "class": "Button",
+            "module": "基础组件",
+            "submodule": "form"
+        },
+        {
+            "file": "src/form/button.js",
+            "line": 22,
+            "description": "是否禁用按钮",
+            "itemtype": "property",
+            "name": "disabled",
+            "type": "Boolean",
+            "default": "false",
+            "since": "1.0.1",
+            "optional": "aa,bbbba",
+            "class": "Button",
+            "module": "基础组件",
+            "submodule": "form"
+        },
+        {
+            "file": "src/form/button.js",
+            "line": 32,
+            "description": "按钮是否处于选中状态",
+            "itemtype": "property",
+            "name": "active",
+            "type": "Boolean",
+            "default": "false",
+            "class": "Button",
+            "module": "基础组件",
+            "submodule": "form"
+        },
+        {
+            "file": "src/form/button.js",
+            "line": 39,
+            "description": "按钮颜色样式",
+            "itemtype": "property",
+            "name": "egStyle",
+            "type": "Boolean",
+            "optional": "success,error,warning,danger,default,link,white",
+            "default": "''",
+            "class": "Button",
+            "module": "基础组件",
+            "submodule": "form"
+        },
+        {
+            "file": "src/form/button.js",
+            "line": 48,
+            "description": "标签tagName",
+            "itemtype": "property",
+            "name": "componentTag",
+            "type": "String",
+            "default": "'button'",
+            "class": "Button",
+            "module": "基础组件",
+            "submodule": "form"
+        },
+        {
+            "file": "src/form/button.js",
+            "line": 55,
+            "description": "是否为块级显示",
+            "itemtype": "property",
+            "name": "block",
+            "type": "Boolean",
+            "default": "false",
+            "class": "Button",
+            "module": "基础组件",
+            "submodule": "form"
+        },
+        {
+            "file": "src/form/button.js",
+            "line": 63,
+            "description": "是否只将主题颜色应用于边框，而不是应用于背景色",
+            "itemtype": "property",
+            "name": "hollow",
+            "type": "Boolean",
+            "default": "false",
+            "class": "Button",
+            "module": "基础组件",
+            "submodule": "form"
+        }
+    ],
+    "warnings": []
+}

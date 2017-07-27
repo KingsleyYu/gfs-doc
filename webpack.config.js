@@ -17,6 +17,7 @@ var OUTPUT = path.resolve(__dirname, 'doc/' + pkg.version); // output目录
 
 
 module.exports = {
+    devtool:'source-map',
     entry: {
         index: [path.join(PATH.TEMPLATE, 'react/index.js')]
     },
@@ -26,7 +27,10 @@ module.exports = {
         filename: 'bundle.js'     // 每个页面对应的主js的生成配置
     },
     resolve: {
-        extensions: ['', '.js', '.less', '.jsx']
+        alias: {
+            docConfig: path.join(__dirname, 'doc', pkg.version, 'doc')
+        },
+        extensions: ['', '.js', '.less', '.jsx', '.json']
     },
     module: {
         loaders: [{
