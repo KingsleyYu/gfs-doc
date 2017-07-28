@@ -12,11 +12,11 @@ class MainLayout extends React.Component {
     }
 
     render() {
-      return (
-             <div>
+        return (
+            <div>
                 <Header {...docConfig.project} />
                 <SideBar {...docConfig.modules} />
-                 {this.props.children}
+                {this.props.children}
             </div>
         )
     }

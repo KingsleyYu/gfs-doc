@@ -12,6 +12,8 @@ module.exports = {
     //themedir: 'theme-smart-ui/',
     //项目信息配置
     project: {
+        //框架主入口
+        entry:'src/',
         //项目名称
         name: '商家线UI库',
         //项目描述，可以配置html，会生成到document主页

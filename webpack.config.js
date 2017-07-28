@@ -8,6 +8,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin')
 const pkg = require('./package.json')
 const docConfig = require('./docConfig.js');
 
+
 const PATH = {
     TEMPLATE: path.resolve(__dirname, './theme/template'),
     DOC: path.resolve(__dirname, './doc')
@@ -17,7 +18,7 @@ var OUTPUT = path.resolve(__dirname, 'doc/' + pkg.version); // output目录
 
 
 module.exports = {
-    devtool:'source-map',
+    devtool: 'source-map',
     entry: {
         index: [path.join(PATH.TEMPLATE, 'react/index.js')]
     },
@@ -28,7 +29,8 @@ module.exports = {
     },
     resolve: {
         alias: {
-            docConfig: path.join(__dirname, 'doc', pkg.version, 'doc')
+            docConfig: path.join(__dirname, 'doc', pkg.version, 'doc'),
+            component: path.join(__dirname, docConfig.project.entry)
         },
         extensions: ['', '.js', '.less', '.jsx', '.json']
     },
@@ -43,6 +45,17 @@ module.exports = {
         }, {
             test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
             loader: 'file-loader?name=./iconfont/[name].[ext]'
+        },
+        {
+            test: /\.(jpe?g|png|gif|svg|ico)/,
+            loader: 'url-loader?limit=999999'
+        }, {
+            test: /\.json$/,
+            loader: 'json-loader'
+        },
+        {
+            test: /\.md$/,
+            loader: 'babel!markdown-it-gfs-loader'
         }]
     },
     plugins: [

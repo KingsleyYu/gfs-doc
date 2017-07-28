@@ -82,9 +82,6 @@ exports.build = function (config, callback) {
 
     function buildDocConfig(data) {
         var items = [], submodules = [], module, subModule, moduleName, subModuleName;
-
-        var mdFiles = walk(path.join(__dirname, docConfig.paths[0]), ".md");
-
         Y.each(data.modules, function (item) {
             item.name && items.push({
                 type: 'module',
@@ -108,11 +105,6 @@ exports.build = function (config, callback) {
         })
 
         data.filterItems = items;
-
-        //Read the markdown files and covnter it to json       
-        Y.each(data.classes, function (oClass) {
-            oClass.blocks = readMarkDownFile(mdFiles, oClass.name);
-        })
 
         //group the classes by module and submodule 
         Y.each(data.modules, function (i, oModuleKey) {
@@ -189,73 +181,5 @@ exports.build = function (config, callback) {
         })
 
         return c_array
-    }
-
-    /**
-     * 读取指定目录下的的markdown 文件的内容，并将其转化会json 数据
-     * @param {*} 文件集合
-     * @param {*} 文件名 
-     */
-    function readMarkDownFile(mdFiles, name) {
-        var dataList = {};
-        var data = {}, titleEl, subTitleEl, descEl, preEl, linkEl;
-        Y.each(mdFiles, function (md) {
-            if (path.basename(md, ".md").toLowerCase() === name.toLowerCase()) {
-                dataList = {
-                    name: name,
-                    blocks: []
-                }
-                var content = fs.readFileSync(md).toString();
-                var r1 = converter.makeHtml(content);
-                var $ = cheerio.load(r1);
-
-                $('blockquote').each(function (index, oEl) {
-                    data = {};
-
-                    titleEl = $(oEl).find('h1');
-                    subTitleEl = $(oEl).find('h2');
-                    descEl = $(oEl).find('p');
-                    preEl = $(oEl).next('pre');
-                    linkEl = preEl.next('p');
-
-                    data.name = name;
-                    data.title = titleEl.length ? titleEl.text() : "";
-                    data.subTitle = subTitleEl.length ? subTitleEl.text() : "";
-                    data.desc = descEl.length ? descEl.text() : "";
-                    data.code = preEl.length ? preEl.find('code').text() : "";
-                    data.link = linkEl.length ? linkEl.find('a').attr('href') : "";
-
-                    dataList.blocks.push(data);
-                })
-            }
-        })
-
-        return dataList;
-    }
-
-    /**
-     * 递归获取指定目录下指定类型的文件
-     * @param {*} dir 
-     * @param {*} dir 
-     */
-    function walk(dir, ext) {
-        var results = []
-        var type;
-        var list = fs.readdirSync(dir)
-        list.forEach(function (file) {
-            file = path.join(dir, file);
-
-            var stat = fs.statSync(file)
-            if (stat && stat.isDirectory()) {
-                results = results.concat(walk(file, ext))
-            }
-            else {
-                type = path.extname(file)
-                if (type === ext) {
-                    results.push(file)
-                }
-            }
-        })
-        return results
     }
 };

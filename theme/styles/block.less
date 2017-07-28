@@ -1,0 +1,133 @@
+/**
+* 定义block的less 文件
+*/
+
+.doc {
+    h1 {
+        &:hover {
+            .header-anchor {
+                visibility: visible;
+            }
+        }
+    }
+    h2 {
+        &:hover {
+            .header-anchor {
+                visibility: visible;
+            }
+        }
+    }
+    h3 {
+        margin: 45px 0 15px;
+        &:hover {
+            .header-anchor {
+                visibility: visible;
+            }
+        }
+    }
+    h4 {
+        &:hover {
+            .header-anchor {
+                visibility: visible;
+            }
+        }
+    }
+    h5 {
+        &:hover {
+            .header-anchor {
+                visibility: visible;
+            }
+        }
+    }
+    h6 {
+        &:hover {
+            .header-anchor {
+                visibility: visible;
+            }
+        }
+    }
+    .header-anchor {
+        visibility: hidden;
+        font-size: 14px;
+        float: left;
+        padding-right: 4px;
+        margin-left: -14px;
+    }
+}
+
+.doc-demo-box {
+    margin-bottom: 20px;
+    border: 1px solid #eaeefb;
+    border-radius: 4px;
+    transition: .2s;
+    &:hover {
+        box-shadow: 0 0 8px 0 rgba(232, 237, 250, .6), 0 2px 4px 0 rgba(232, 237, 250, .5);
+        z-index: 10;
+    }
+}
+
+.doc-demo-instance {
+    padding: 10px;
+    >h4 {
+        margin: 0 0 10px;
+        font-size: 14px;
+    }
+}
+
+.doc-demo-description {
+    margin: 10px 0;
+    font-size: 14px;
+    color: #5e6d82;
+    line-height: 1.5em;
+    &>p {
+        margin: 0;
+    }
+}
+
+.doc-demo-code {
+    display: none;
+    border-top: 1px dashed #eee;
+    padding: 10px;
+    >pre {
+        background: white;
+        margin: 0;
+        padding: 0;
+        border: none;
+    }
+}
+
+.doc-demo-code-btn {
+    padding: 10px;
+    border-top: 1px solid #eee;
+    cursor: pointer;
+    i {
+        margin: auto;
+        display: block;
+        border-bottom: 8px solid transparent;
+        border-left: 8px solid transparent;
+        border-top: 8px solid #eee;
+        border-right: 8px solid transparent;
+        margin-bottom: -8px;
+        width: 0;
+        height: 0;
+    }
+}
+
+.doc-demo-box.doc-demo-code-active {
+    .doc-demo-code {
+        display: block;
+    }
+}
+
+.doc-demo-box.code-active {
+    .doc-demo-code-btn {
+        i {
+            border-top: 8px solid transparent;
+            border-left: 8px solid transparent;
+            border-bottom: 8px solid #eee;
+            border-right: 8px solid transparent;
+            margin-top: -8px;
+            margin-bottom: 0;
+        }
+    }
+}

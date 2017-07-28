@@ -9,7 +9,7 @@ var config = require("./webpack.config.js");
 config
     .entry
     .index
-    .unshift('webpack-dev-server/client?http://localhost:8888', 'webpack/hot/dev-server');
+    .unshift('regenerator-runtime/runtime', 'webpack-dev-server/client?http://localhost:8888', 'webpack/hot/dev-server');
 
 // 合并一个 devServer到配置文件
 Object.assign(config, {
