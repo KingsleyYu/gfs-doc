@@ -1,19 +1,19 @@
-import React,{PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import Component from '../utils/Component';
 import classnames from 'classnames';
-import {setPhoenixPrefix} from '../utils/Tool';
+// import { setPhoenixPrefix } from '../utils/Tool';
+import Tool from '../utils/Tool';
 
 /**
  * input框组件
  * @class Input
  * @module 基础组件
- * @submodule form
+ * @submodule basic
  * @extends Component
  * @constructor
  * @since 0.1.0
  * */
-
-export default class Input extends Component{
+export default class Input extends Component {
 
     static propTypes = {
         /**
@@ -36,13 +36,13 @@ export default class Input extends Component{
          * @type String
          * @default 'input'
          * */
-        classPrefix:PropTypes.string,
+        classPrefix: PropTypes.string,
         /**
          * 标签tagName
          * @property componentTag
          * @type String
          * */
-        componentTag:PropTypes.string,
+        componentTag: PropTypes.string,
         /**
          * 更改值时触发的回调
          * @event onChange
@@ -53,48 +53,48 @@ export default class Input extends Component{
 
     static defaultProps = {
         type: 'text',
-        classPrefix:'input',
-        componentTag:'div',
-        classMapping : {}
+        classPrefix: 'input',
+        componentTag: 'div',
+        classMapping: {}
     };
 
     constructor(props, context) {
         super(props, context);
     }
 
-    otherView(type){
+    otherView(type) {
         return (
-            <label className={setPhoenixPrefix("multi-group")}>
-                <div className={setPhoenixPrefix(type)}>
+            <label className={Tool.setPhoenixPrefix("multi-group")}>
+                <div className={Tool.setPhoenixPrefix(type)}>
                     <input {...this.props} />
                     <i></i>
                 </div>
-                <span>{this.props.label ||''}</span>
+                <span>{this.props.label || ''}</span>
             </label>
         );
     }
 
-    renderInput(type){
+    renderInput(type) {
         let html = <div></div>;
 
-        if(type =='checkbox' || type=='radio'){
-            html=this.otherView(type);
-        }else{
+        if (type == 'checkbox' || type == 'radio') {
+            html = this.otherView(type);
+        } else {
             html = (<input {...this.props} className={
                 classnames(
                     this.getProperty(true),
                     this.props.className
                 )
-                }/>);
+            } />);
         }
 
         return html;
     }
 
 
-    render(){
-        let {componentTag:Component,type} = this.props;
-        return this.renderInput(type ? type:'text');
+    render() {
+        let { componentTag: Component, type } = this.props;
+        return this.renderInput(type ? type : 'text');
     }
 
 }

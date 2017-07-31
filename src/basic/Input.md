@@ -6,7 +6,7 @@ imports:
 ```jsx
  <Input placeholder="默认text" />
  <Input type="text" defaultValue="默认值defaultValue" placeholder="请输入" />
- <Input type="text" value={this.state.name} onChange={::this.setValue.bind(this,"name")} placeholder="请输入" />
+ <Input type="text" value={this.state.name}  placeholder="请输入" />
 ```
 :::
 

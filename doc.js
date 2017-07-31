@@ -77,7 +77,7 @@ exports.build = function (config, callback) {
 
         var metaData = buildDocConfig(Object.assign({}, json));
 
-        fs.writeFileSync(path.join(options.outdir, 'doc.js'), "export default " + JSON.stringify(metaData));
+        fs.writeFileSync(path.join(options.outdir, 'doc.js'), "export default \r\n" + JSON.stringify(metaData));
     }
 
     function buildDocConfig(data) {
@@ -117,7 +117,9 @@ exports.build = function (config, callback) {
                         classes: getClassesBySubmodule(data.classes, module.name, oSubModuleKey)
                     })
                 })
-                module.submodules = submodules;
+                // module.submodules = submodules;
+                submodules.sort(Y.DocBuilder.prototype.nameSort);
+                module.submodules=submodules;
             } 
         })
 

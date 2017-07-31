@@ -8,27 +8,34 @@ class SideBar extends React.Component {
     }
 
 
-    getModuleList() {
-        const { modules, classes } = this.props;
+    getMenu(menu) {
+        let menuItem = null;
 
-        let list = null, module;
-
-        if (modules) {
-            list = modules.map((oModuleKey) => {
-                module = modules[oModuleKey];
-                return (
-                    <li className="nav-item">
-                        <span className="module">{module.name}</span>
+        if (menu.subMenus && menu.subMenus.length) {
+            menuItem= (
+                <li key={menu.name} className="nav-item">
+                    <span className="module">{menu.name}</span>
+                    <ul className="pure-menu-list sub-nav">
                         {
-                            this.getSubModuleList(module.submodules)
+                            menu.subMenus.map(subMenu => {
+                                return (
+                                    <li key={subMenu.name} className="nav-item">
+                                        <Link to={'/components/' + subMenu.key} className="module">{subMenu.name}</Link>
+                                    </li>
+                                )
+                            })
                         }
-                    </li>
-                )
-            })
+                    </ul>
+                </li>
+            )
+        }
+        else {
+            menuItem = <li key={menu.name} className="nav-item"><Link to={'/components/' + menu.key} className="module">{menu.name}</Link></li>
         }
 
-        return list;
+        return menuItem;
     }
+
 
     getSubModuleList(moduleName, submodules) {
         let list = null;
@@ -70,7 +77,8 @@ class SideBar extends React.Component {
 
     render() {
         let module;
-        let allModules = this.props;
+        let allModules = this.props.modules;
+        let { menus } = this.props.project;
         return (
             <div id="sidebar">
                 <div id="sidebar_list">
@@ -78,9 +86,10 @@ class SideBar extends React.Component {
                         <h3>版本</h3>
                     </div>
                     <ul>
-                        <li className="nav-item">
-                            <Link to="/components/updateLog" activeStyle={{ color: 'red' }} className="module">更新日志</Link>
-                        </li>
+                        {
+                            menus &&
+                            menus.map(menu => this.getMenu(menu))
+                        }
                         {
                             allModules &&
                             Object.keys(allModules).map((oModuleKey) => {

@@ -1,10 +1,8 @@
 import React from 'react'
-import docConfig from 'docConfig'
 
-// import Demo from 'component/form/Button.md'
+import DocConfig from '../../utils/docConfig'
 
 import '../../../styles/content.less'
-
 
 class ContentLayout extends React.Component {
     constructor(props) {
@@ -16,12 +14,12 @@ class ContentLayout extends React.Component {
     }
 
     componentDidMount() {
-        this.getClassData(this.props.routeParams);
+
     }
 
     getClassData = (routeParams) => {
         let className = routeParams.name;
-        let classData = docConfig.classes[className];
+        let classData = DocConfig.getDataByClass(className)
 
         if (classData) {
             this.setState({
@@ -47,23 +45,31 @@ class ContentLayout extends React.Component {
         return true;
     }
 
-    toggleCode = () => {
-
-    }
-
     render() {
-        const Demo = require(`component/form/${this.props.routeParams.name}.md`)
-        return (
-            <div className="stdoc-content">
-                <div className="class-container">
-                    <section className="header">
-                        <h2>{this.state.name}</h2>
-                        <p>{this.state.description}</p>
-                    </section>
-                    <Demo />
+        let classData = DocConfig.getDataByClass(this.props.routeParams.name)
+        if (classData) {
+            let Demo = require(`component/${classData.submodule}/${this.props.routeParams.name}.md`).default;
+            return (
+                <div className="stdoc-content">
+                    <div className="class-container">
+                        <section className="header">
+                            <h2>{classData.name}</h2>
+                            <p>{classData.description}</p>
+                        </section>
+                        <Demo />
+                    </div>
                 </div>
-            </div>
-        )
+            )
+        }
+        else {
+            let menuInfo = DocConfig.getMeunByKey(this.props.routeParams.name);
+            let Page = require(`component/${menuInfo.url}`).default;
+            return (
+                <div className="stdoc-content">
+                    <Page />
+                </div>
+            )
+        }
     }
 }
 

@@ -15,7 +15,7 @@ class MainLayout extends React.Component {
         return (
             <div>
                 <Header {...docConfig.project} />
-                <SideBar {...docConfig.modules} />
+                <SideBar modules={docConfig.modules} project={docConfig.project} />
                 {this.props.children}
             </div>
         )

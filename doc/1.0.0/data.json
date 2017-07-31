@@ -20,25 +20,40 @@
                 "url": "http://uedfamily.com/about/"
             }
         ],
+        "menus": [
+            {
+                "name": "开发指南",
+                "subMenus": [
+                    {
+                        "name": "安装",
+                        "url": "install.md"
+                    },
+                    {
+                        "name": "快速上手",
+                        "url": "quickstart.md"
+                    }
+                ]
+            }
+        ],
         "header": "",
         "footer": "",
         "docVersion": "1.0.0"
     },
     "files": {
+        "src/basic/Input.js": {
+            "name": "src/basic/Input.js",
+            "modules": {},
+            "classes": {
+                "Input": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
         "src/form/Button.js": {
             "name": "src/form/Button.js",
             "modules": {},
             "classes": {
                 "Button": 1
-            },
-            "fors": {},
-            "namespaces": {}
-        },
-        "src/form/Input.js": {
-            "name": "src/form/Input.js",
-            "modules": {},
-            "classes": {
-                "Input": 1
             },
             "fors": {},
             "namespaces": {}
@@ -101,24 +116,24 @@
         "基础组件": {
             "name": "基础组件",
             "submodules": {
+                "basic": 1,
                 "form": 1
             },
             "elements": {},
             "classes": {
-                "Button": 1,
-                "Input": 1
+                "Input": 1,
+                "Button": 1
             },
             "fors": {},
             "namespaces": {},
-            "file": "src/form/Input.js",
+            "file": "src/form/Button.js",
             "line": 6
         },
-        "form": {
-            "name": "form",
+        "basic": {
+            "name": "basic",
             "submodules": {},
             "elements": {},
             "classes": {
-                "Button": 1,
                 "Input": 1
             },
             "fors": {},
@@ -126,8 +141,24 @@
             "namespaces": {},
             "module": "基础组件",
             "namespace": "",
+            "description": "input框组件",
+            "file": "src/basic/Input.js",
+            "line": 7
+        },
+        "form": {
+            "name": "form",
+            "submodules": {},
+            "elements": {},
+            "classes": {
+                "Button": 1
+            },
+            "fors": {},
+            "is_submodule": 1,
+            "namespaces": {},
+            "module": "基础组件",
+            "namespace": "",
             "description": "按钮组件",
-            "file": "src/form/Input.js",
+            "file": "src/form/Button.js",
             "line": 6
         },
         "标签组件": {
@@ -146,23 +177,6 @@
         }
     },
     "classes": {
-        "Button": {
-            "name": "Button",
-            "shortname": "Button",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "基础组件",
-            "file": "src/form/Button.js",
-            "line": 6,
-            "description": "按钮组件",
-            "submodule": "form",
-            "extends": "Component",
-            "is_constructor": 1,
-            "since": "0.1.0"
-        },
         "Input": {
             "name": "Input",
             "shortname": "Input",
@@ -172,10 +186,27 @@
             "plugin_for": [],
             "extension_for": [],
             "module": "基础组件",
-            "namespace": "",
-            "file": "src/form/Input.js",
-            "line": 6,
+            "file": "src/basic/Input.js",
+            "line": 7,
             "description": "input框组件",
+            "submodule": "basic",
+            "extends": "Component",
+            "is_constructor": 1,
+            "since": "0.1.0"
+        },
+        "Button": {
+            "name": "Button",
+            "shortname": "Button",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "基础组件",
+            "namespace": "",
+            "file": "src/form/Button.js",
+            "line": 6,
+            "description": "按钮组件",
             "submodule": "form",
             "extends": "Component",
             "is_constructor": 1,
@@ -203,6 +234,64 @@
     },
     "elements": {},
     "classitems": [
+        {
+            "file": "src/basic/Input.js",
+            "line": 19,
+            "description": "input类型, 可选[text,checkbox,radio], 默认text",
+            "itemtype": "property",
+            "name": "type",
+            "type": "String",
+            "default": "'text'",
+            "class": "Input",
+            "module": "基础组件",
+            "submodule": "basic"
+        },
+        {
+            "file": "src/basic/Input.js",
+            "line": 26,
+            "description": "类型为checkbox&radio时, 展示的文字信息",
+            "itemtype": "property",
+            "name": "label",
+            "type": "String",
+            "default": "''",
+            "class": "Input",
+            "module": "基础组件",
+            "submodule": "basic"
+        },
+        {
+            "file": "src/basic/Input.js",
+            "line": 33,
+            "description": "样式前缀",
+            "itemtype": "property",
+            "name": "classPrefix",
+            "type": "String",
+            "default": "'input'",
+            "class": "Input",
+            "module": "基础组件",
+            "submodule": "basic"
+        },
+        {
+            "file": "src/basic/Input.js",
+            "line": 40,
+            "description": "标签tagName",
+            "itemtype": "property",
+            "name": "componentTag",
+            "type": "String",
+            "class": "Input",
+            "module": "基础组件",
+            "submodule": "basic"
+        },
+        {
+            "file": "src/basic/Input.js",
+            "line": 46,
+            "description": "更改值时触发的回调",
+            "itemtype": "event",
+            "name": "onChange",
+            "type": "Function",
+            "class": "Input",
+            "module": "基础组件",
+            "submodule": "basic"
+        },
         {
             "file": "src/form/Button.js",
             "line": 18,
@@ -307,64 +396,6 @@
             "type": "Boolean",
             "default": "false",
             "class": "Button",
-            "module": "基础组件",
-            "submodule": "form"
-        },
-        {
-            "file": "src/form/Input.js",
-            "line": 19,
-            "description": "input类型, 可选[text,checkbox,radio], 默认text",
-            "itemtype": "property",
-            "name": "type",
-            "type": "String",
-            "default": "'text'",
-            "class": "Input",
-            "module": "基础组件",
-            "submodule": "form"
-        },
-        {
-            "file": "src/form/Input.js",
-            "line": 26,
-            "description": "类型为checkbox&radio时, 展示的文字信息",
-            "itemtype": "property",
-            "name": "label",
-            "type": "String",
-            "default": "''",
-            "class": "Input",
-            "module": "基础组件",
-            "submodule": "form"
-        },
-        {
-            "file": "src/form/Input.js",
-            "line": 33,
-            "description": "样式前缀",
-            "itemtype": "property",
-            "name": "classPrefix",
-            "type": "String",
-            "default": "'input'",
-            "class": "Input",
-            "module": "基础组件",
-            "submodule": "form"
-        },
-        {
-            "file": "src/form/Input.js",
-            "line": 40,
-            "description": "标签tagName",
-            "itemtype": "property",
-            "name": "componentTag",
-            "type": "String",
-            "class": "Input",
-            "module": "基础组件",
-            "submodule": "form"
-        },
-        {
-            "file": "src/form/Input.js",
-            "line": 46,
-            "description": "更改值时触发的回调",
-            "itemtype": "event",
-            "name": "onChange",
-            "type": "Function",
-            "class": "Input",
             "module": "基础组件",
             "submodule": "form"
         },

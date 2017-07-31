@@ -13,7 +13,7 @@ module.exports = {
     //项目信息配置
     project: {
         //框架主入口
-        entry:'src/',
+        entry: 'src/',
         //项目名称
         name: '商家线UI库',
         //项目描述，可以配置html，会生成到document主页
@@ -46,6 +46,19 @@ module.exports = {
         }, {
             name: "关于",
             url: "http://uedfamily.com/about/"
+        }],
+        menus: [{
+            name: "开发指南",
+            subMenus: [
+                {
+                    name: "安装",
+                    url: "install.md" //markdown 文件的绝对路径，相对于path
+                },
+                {
+                    name: "快速上手",
+                    url: "quickstart.md" 
+                },
+            ]
         }],
         //自定义头部
         header: "",
